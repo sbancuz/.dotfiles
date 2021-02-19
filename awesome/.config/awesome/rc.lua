@@ -716,6 +716,14 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell(
     'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
     'xrdb -merge <<< "awesome.started:true";' ..
-    './autostart.sh' .. 
+    'redshift -c $HOME/.config/redshift.conf;' .. 
     'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
     )
+
+awful.spawn.with_shell('picom --config  $HOME/.config/picom.conf')
+awful.spawn.with_shell('nm-applet')
+awful.spawn.with_shell('eval "$(ssh-agent -s)"')
+awful.spawn.with_shell('ssh-add $HOME/s')
+awful.spawn.with_shell('nitrogen --restore')
+awful.spawn.with_shell('/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &')
+awful.spawn.with_shell('volumeicon')
