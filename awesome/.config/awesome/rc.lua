@@ -719,6 +719,8 @@ awful.spawn.with_shell(
     'redshift -c $HOME/.config/redshift.conf;' ..
     'picom --config  $HOME/.config/picom.conf;' ..
     'nm-applet;' ..
+    'eval "$(ssh-agent -s)";' ..
+    'ssh-add s;' ..
     'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
     )
 
