@@ -58,8 +58,6 @@ run_once({ "unclutter -root" }) -- entries must be comma-separated
 
 local themes = {
     "powerarrow-blue", -- 1
-    "powerarrow",      -- 2
-    "multicolor",      -- 3
 }
 
 -- choose your theme here
@@ -86,7 +84,6 @@ local virtualmachine    = "virtualbox"
 awful.util.terminal = terminal
 awful.util.tagnames = {  " ", " ", " ", "🎶 ", "<>"}
 default = { "firefox", "nautilus", "lightcord", "spotify", "code"}
---awful.util.tagnames = { " DEV ", " WWW ", " SYS ", " DOC ", " VBOX ", " CHAT ", " MUS ", " VID ", " GFX " }
 awful.layout.suit.tile.left.mirror = true
 awful.layout.layouts = {
     awful.layout.suit.tile,
@@ -517,35 +514,6 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = false } },
 
-    -- Set applications to always map on the tag 1 on screen 1.
-    -- find class or role via xprop command
-    --{ rule = { class = browser1 },
-    --  properties = { screen = 1, tag = awful.util.tagnames[1] } },
---
-    --{ rule = { class = "Lutris" },
-    --    properties = { screen = 1, tag = awful.util.tagnames[2] } },
---
-    --{ rule = { class = "Steam" },
-    --    properties = { screen = 1, tag = awful.util.tagnames[2] } },
-    --
-    --{ rule = { class = "Lightcord" },
-    --    properties = { screen = 1, tag = awful.util.tagnames[3] } },
-    --
-    --{ rule = { class = "Spotify" },
-    --    properties = { screen = 1, tag = awful.util.tagnames[4] } },
---
-    --{ rule = { class = editorgui },
-    --    properties = { screen = 1, tag = awful.util.tagnames[5] } },
-
-    --{ rule = { class = "Gimp" },
-    --    properties = { screen = 1, tag = awful.util.tagnames[5] } },
-
-    -- Set applications to be maximized at startup.
-    -- find class or role via xprop command
-
-    --{ rule = { class = editorgui },
-    --      properties = { maximized = true } },
-
     { rule = { class = "Gimp*", role = "gimp-image-window" },
           properties = { maximized = true } },
 
@@ -744,10 +712,17 @@ client.connect_signal("focus", border_adjust)
 client.connect_signal("property::maximized", border_adjust)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
-awful.spawn.with_shell("redshift -c $HOME/.config/redshift.conf")
-awful.spawn.with_shell("nitrogen --restore")
-awful.spawn.with_shell("picom --config  $HOME/.config/picom.conf")
-awful.spawn.with_shell("nm-applet")
-awful.spawn.with_shell("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &")
+
+awful.spawn.with_shell(
+    'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
+    'xrdb -merge <<< "awesome.started:true";' ..
+    'redshift -c $HOME/.config/redshift.conf;' ..
+    '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &;' ..
+    'picom --config  $HOME/.config/picom.conf;' ..
+    'nm-applet;' ..
+    'nitrogen --restore;' ..
+    'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
+    )
+
 awful.spawn.with_shell("volumeicon")
 
