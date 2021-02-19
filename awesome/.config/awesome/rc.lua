@@ -717,12 +717,12 @@ awful.spawn.with_shell(
     'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
     'xrdb -merge <<< "awesome.started:true";' ..
     'redshift -c $HOME/.config/redshift.conf;' ..
-    '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &;' ..
     'picom --config  $HOME/.config/picom.conf;' ..
     'nm-applet;' ..
-    'nitrogen --restore;' ..
     'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
     )
 
+awful.spawn.with_shell("nitrogen --restore")
+awful.spawn.with_shell("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &;")
 awful.spawn.with_shell("volumeicon")
 
