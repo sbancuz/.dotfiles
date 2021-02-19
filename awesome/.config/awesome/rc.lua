@@ -723,7 +723,7 @@ awful.spawn.with_shell(
 awful.spawn.with_shell('picom --config  $HOME/.config/picom.conf')
 awful.spawn.with_shell('nm-applet')
 awful.spawn.with_shell('eval "$(ssh-agent -s)"')
-awful.spawn.with_shell('ssh-add $HOME/s')
+awful.spawn.with_shell('ssh-add s')
 awful.spawn.with_shell('nitrogen --restore')
 awful.spawn.with_shell('/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &')
 awful.spawn.with_shell('volumeicon')
