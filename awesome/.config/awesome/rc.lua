@@ -201,13 +201,12 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
 
     -- {{{ Personal keybindings
-    -- dmenu
+    -- rofi
     awful.key({ modkey, "Shift" }, "Return",
     function ()
-        awful.spawn(string.format("dmenu_run",
-        beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
+        awful.spawn("rofi -show drun -config .config/awesome/rofi_config.rasi")
 	end,
-    {description = "show dmenu", group = "hotkeys"}),
+    {description = "show rofi", group = "hotkeys"}),
 
     -- My dmenu scripts (Alt+Ctrl+Key)
     --awful.key({ altkey, "Control" }, "e", function () awful.util.spawn( "./.dmenu/dmenu-edit-configs.sh" ) end,
