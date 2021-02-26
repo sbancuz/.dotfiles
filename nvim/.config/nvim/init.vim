@@ -1,7 +1,6 @@
   " Install plugins
-  if empty(glob("~/.vim/autoload/plug.vim"))
-    !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
+      !sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     auto VimEnter * PlugInstall
   endif
 

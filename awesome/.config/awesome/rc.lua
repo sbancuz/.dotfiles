@@ -73,7 +73,7 @@ local modkey1      = "Control"
 local browser           = "firefox"
 local editor            = os.getenv("EDITOR") or "nvim"
 local editorgui         = "Code"
-local filemanager       = "nautilus"
+local filemanager       = "nemo"
 local mailclient        = "geary"
 local mediaplayer       = "vlc"
 local scrlocker         = "slimlock"
@@ -83,7 +83,7 @@ local virtualmachine    = "virtualbox"
 -- awesome variables
 awful.util.terminal = terminal
 awful.util.tagnames = {  " ", " ", " ", "🎶 ", "<>"}
-default = { "firefox", "nautilus", "lightcord", "spotify", "code"}
+default = { "firefox", "nemo", "lightcord", "spotify", "code"}
 awful.layout.suit.tile.left.mirror = true
 awful.layout.layouts = {
     awful.layout.suit.tile,
