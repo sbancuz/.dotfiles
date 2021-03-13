@@ -217,6 +217,15 @@ globalkeys = my_table.join(
 --
     --awful.key({ altkey, "Control" }, "p", function () awful.util.spawn( "passmenu" ) end,
     --    {description = "passmenu" , group = "dmenu scripts" }),
+    awful.key({ modkey }, "p", function () 
+        awful.spawn.with_shell('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause') end,
+        {description = "Spotify pause/play" , group = "hotkeys" }),
+    awful.key({ modkey }, "è", function () 
+        awful.spawn.with_shell('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous') end,
+        {description = "Spotify previous song" , group = "hotkeys" }),
+    awful.key({ modkey }, "+", function () 
+        awful.spawn.with_shell('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next') end,
+        {description = "Spotify next song" , group = "hotkeys" }),
 
     awful.key({ modkey }, "d", function () awful.util.spawn( default[awful.screen.focused().selected_tag.index] ) end,
         {description = "open default app for screen" , group = "hotkeys" }),
@@ -258,25 +267,11 @@ globalkeys = my_table.join(
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
 
-    awful.key({ modkey1,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
-        {description = "go back", group = "client"}),
+    awful.key({ "Shift" }, "Tab", function () awful.client.focus.history.previous() if client.focus then client.focus:raise() end
+        end, {description = "go back", group = "client"}),
 
-    awful.key({ modkey }, "b", function ()
-            for s in screen do
-                s.mywibox.visible = not s.mywibox.visible
-                if s.mybottomwibox then
-                    s.mybottomwibox.visible = not s.mybottomwibox.visible
-                end
-            end
-        end,
-        {description = "toggle wibox", group = "awesome"}),
-
+    awful.key({ modkey }, "b", function () for s in screen do s.mywibox.visible = not s.mywibox.visible if s.mybottomwibox then s.mybottomwibox.visible = not s.mybottomwibox.visible end end
+        end, {description = "toggle wibox", group = "awesome"}),
 
     awful.key({ modkey,           }, "Return", function () awful.spawn( terminal ) end,
         {description = "terminal", group = "hotkeys"}),
@@ -288,7 +283,7 @@ globalkeys = my_table.join(
               {description = "increase master width factor", group = "layout"}),
     awful.key({ altkey, "Shift"   }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
+    awful.key({ modkey, "Shift" }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
               {description = "decrease the number of master clients", group = "layout"}),
@@ -693,9 +688,9 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
-client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", {raise = true})
-end)
+-- client.connect_signal("mouse::enter", function(c)
+--     c:emit_signal("request::activate", "mouse_enter", {raise = true})
+-- end)
 
 -- No border for maximized clients
 function border_adjust(c)
