@@ -35,6 +35,7 @@
   Plug 'akinsho/nvim-toggleterm.lua'
   Plug 'airblade/vim-gitgutter' 
   Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+  Plug 'mhinz/vim-startify'
   " Color scheme
   Plug 'phanviet/vim-monokai-pro'
 
@@ -71,7 +72,8 @@
   set cmdheight=2
   set updatetime=300
   set shortmess+=c
-  
+  :hi NonText guifg=bg
+  highlight LineNr guibg=bg
 " Search settings
   set ignorecase
   set incsearch
@@ -177,16 +179,15 @@ EOF
   command! -bang -nargs=* FU call fzf#vim#grep(g:rg_command . '-m1 ' . shellescape(<q-args>), 1, <bang>0)
 
   " Git gutter
-  let g:gitgutter_sign_added = '█|'
-  let g:gitgutter_sign_modified = '█|'
-  let g:gitgutter_sign_removed = '█|'
-  let g:gitgutter_sign_removed_first_line = '█|'
-  let g:gitgutter_sign_modified_removed = "█|"
-
+  let g:gitgutter_sign_added = '█'
+  let g:gitgutter_sign_modified = '█'
+  let g:gitgutter_sign_removed = '█'
+  let g:gitgutter_sign_removed_first_line = '█'
+  let g:gitgutter_sign_modified_removed = "█"
+  highlight! link SignColumn LineNr
   highlight GitGutterAdd    guifg=#009900 ctermfg=2
   highlight GitGutterChange guifg=#bbbb00 ctermfg=3
   highlight GitGutterDelete guifg=#ff2222 ctermfg=1
-
   " Coc
   "
   " Autocompletion with tab
